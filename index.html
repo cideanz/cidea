@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIDEA — Cámara Inmobiliaria del Estado Anzoátegui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-primario: #1a5c2e;
+            --verde-oscuro: #0f3d1d;
+            --verde-claro: #2d8a4e;
+            --verde-pastel: #e8f5e9;
+            --dorado: #c5a059;
+            --blanco: #ffffff;
+            --gris-claro: #f5f7f5;
+            --gris-texto: #4a4a4a;
+            --sombra: 0 4px 20px rgba(26, 92, 46, 0.1);
+            --sombra-hover: 0 8px 30px rgba(26, 92, 46, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--gris-texto);
+            line-height: 1.7;
+            background-color: var(--blanco);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--verde-oscuro);
+        }
+
+        /* Navegación */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--sombra);
+            z-index: 1000;
+            padding: 0.8rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--verde-primario);
+            font-size: 1.1rem;
+        }
+
+        .nav-logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--verde-oscuro);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--verde-claro);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--verde-claro);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--verde-primario);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde-primario) 50%, var(--verde-claro) 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--blanco);
+            max-width: 900px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--blanco);
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Secciones generales */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--dorado);
+            margin: 0.8rem auto 0;
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: #777;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Misión y Visión */
+        .mision-vision {
+            background: var(--gris-claro);
+        }
+
+        .mv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .mv-card {
+            background: var(--blanco);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--verde-primario), var(--verde-claro));
+        }
+
+        .mv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .mv-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mv-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--verde-primario);
+        }
+
+        .mv-card p {
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Cards de enlaces */
+        .links-section {
+            background: var(--blanco);
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .link-card {
+            background: var(--blanco);
+            border: 1px solid #e0e8e0;
+            border-radius: 14px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--verde-primario);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+            transform-origin: bottom;
+        }
+
+        .link-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .link-card:hover {
+            border-color: var(--verde-claro);
+            box-shadow: var(--sombra-hover);
+            transform: translateY(-3px);
+        }
+
+        .link-card .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .link-card h4 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: var(--verde-oscuro);
+        }
+
+        .link-card p {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        .link-card .arrow {
+            margin-top: auto;
+            padding-top: 1rem;
+            font-size: 1.2rem;
+            color: var(--verde-claro);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+
+        .link-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Categoría */
+        .category-label {
+            display: inline-block;
+            background: var(--verde-pastel);
+            color: var(--verde-primario);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Academia / PREANI */
+        .academia-section {
+            background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-primario));
+            color: var(--blanco);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .academia-section h2,
+        .academia-section h3,
+        .academia-section h4 {
+            color: var(--blanco);
+        }
+
+        .academia-section .section-header h2::after {
+            background: var(--dorado);
+        }
+
+        .academia-section .section-header p {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .academia-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .academia-info {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .academia-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .academia-info p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .preani-card {
+            background: var(--blanco);
+            color: var(--gris-texto);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .preani-card h3 {
+            color: var(--verde-primario);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .preani-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .preani-card ul li {
+            padding: 0.6rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .preani-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--verde-claro);
+            font-weight: 700;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--verde-pastel);
+            color: var(--verde-primario);
+            padding: 0.2rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Contacto */
+        .contacto-section {
+            background: var(--gris-claro);
+            text-align: center;
+        }
+
+        .contacto-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contacto-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-wa {
+            background: #25D366;
+            color: var(--blanco);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-wa:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-ig {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: var(--blanco);
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+        }
+
+        .btn-ig:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 39, 67, 0.4);
+        }
+
+        .btn-mail {
+            background: var(--verde-primario);
+            color: var(--blanco);
+            box-shadow: var(--sombra);
+        }
+
+        .btn-mail:hover {
+            transform: translateY(-3px);
+            background: var(--verde-oscuro);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--verde-oscuro);
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            padding: 2.5rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer strong {
+            color: var(--blanco);
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .mv-grid,
+            .academia-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .mv-card,
+            .academia-info,
+            .preani-card {
+                padding: 2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .contacto-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contacto-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:45px;width:auto;">
+                    <path d="M60 40 L60 100 L40 110 L40 50 Z" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M60 40 L100 20 L100 80 L60 100 Z" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M100 20 L140 40 L140 100 L100 80 Z" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M140 40 L160 50 L160 110 L140 100 Z" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M60 100 L100 120 L140 100" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M100 80 L100 120" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M80 90 L80 130 L120 130 L120 90" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M80 130 L60 140 L60 100" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                    <path d="M120 130 L140 140 L140 100" stroke="#1a5c2e" stroke-width="4" fill="none"/>
+                </svg>
+                CIDEA
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#cumbres">Cumbres</a></li>
+                <li><a href="#alianzas">Alianzas</a></li>
+                <li><a href="#academia">Academia</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <svg class="hero-logo" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60 40 L60 100 L40 110 L40 50 Z" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M60 40 L100 20 L100 80 L60 100 Z" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M100 20 L140 40 L140 100 L100 80 Z" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M140 40 L160 50 L160 110 L140 100 Z" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M60 100 L100 120 L140 100" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M100 80 L100 120" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M80 90 L80 130 L120 130 L120 90" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M80 130 L60 140 L60 100" stroke="white" stroke-width="4" fill="none"/>
+                <path d="M120 130 L140 140 L140 100" stroke="white" stroke-width="4" fill="none"/>
+            </svg>
+            <h1>Cámara Inmobiliaria del Estado Anzoátegui</h1>
+            <p class="subtitle">Construyendo el futuro urbano de nuestra región con ética, profesionalismo y visión de desarrollo sostenible</p>
+            <span class="hero-badge">Afiliada a la Cámara Inmobiliaria de Venezuela</span>
+        </div>
+    </section>
+
+    <!-- Misión y Visión -->
+    <section class="mision-vision" id="nosotros">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nuestro Propósito</h2>
+                <p>Comprometidos con el fortalecimiento del sector inmobiliario en la región oriente del país</p>
+            </div>
+            <div class="mv-grid">
+                <div class="mv-card fade-in">
+                    <div class="icon">🎯</div>
+                    <h3>Misión</h3>
+                    <p>Impulsar el desarrollo urbano sostenible de Venezuela mediante el fortalecimiento de los actores que conforman el sector inmobiliario, con especial énfasis en la defensa de los derechos y deberes de nuestros afiliados. Promovemos activamente ante los organismos competentes la construcción de ciudades con mayor calidad de vida, impulsando la renovación de infraestructuras más eficientes, accesibles y funcionales para el beneficio colectivo. Trabajamos para que cada desarrollo inmobiliario se traduzca en comunidades más sostenibles, atractivas y con mayor plusvalía, contribuyendo al bienestar general de la población tanto en zonas formales como en áreas en proceso de consolidación.</p>
+                </div>
+                <div class="mv-card fade-in">
+                    <div class="icon">🔭</div>
+                    <h3>Visión</h3>
+                    <p>Consolidarnos como actor protagonista y promotor activo de las transformaciones que demanda el sector inmobiliario venezolano. Ampliamos continuamente nuestros espacios de incidencia, fortalecemos nuestra estructura organizacional y participamos de manera ética, íntegra y profesional en los procesos de planificación nacional. Nos proyectamos como referentes en la formación y actualización constante de nuestros asociados, generando valor a través del conocimiento especializado y el liderazgo gremial que caracteriza nuestra trayectoria institucional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos y Documentos -->
+    <section class="links-section" id="recursos">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Recursos y Documentos</h2>
+                <p>Accede a información clave, normativas y estadísticas del sector</p>
+            </div>
+            <div class="links-grid">
+                <a href="https://cidea1988.blogspot.com/?m=1" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Blog</span>
+                    <div class="card-icon">📰</div>
+                    <h4>Pulso Inmobiliario Anzoátegui</h4>
+                    <p>Actualidad, análisis y tendencias del mercado inmobiliario en nuestra región.</p>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1zY67gJWHuVp8drAS5ausFFko73saGUgm/view" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Estadísticas</span>
+                    <div class="card-icon">📊</div>
+                    <h4>Observatorio de Estadísticas</h4>
+                    <p>Datos cuantitativos y seguimiento de indicadores del sector inmobiliario regional.</p>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://camarainmobiliaria.org.ve/wp-content/uploads/2026/03/REGLAMENTO-DE-CERTIFICACION-CIV-APROBADO-JUNTA-DIRECTIVA-1.pdf" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Normativa</span>
+                    <div class="card-icon">📜</div>
+                    <h4>Reglamento de Certificación del Profesional Inmobiliario</h4>
+                    <p>Documento oficial de la CIV que establece los lineamientos de certificación gremial.</p>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://camarainmobiliaria.org.ve/wp-content/uploads/2026/03/444COMPRIMIDO-CARRUSEL-CODIGO-DE-ETICA-1.pdf-comprimido-1.pdf" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Ética</span>
+                    <div class="card-icon">⚖️</div>
+                    <h4>Código de Ética CIV 2025</h4>
+                    <p>Marco de conducta y principios rectores que rigen la actuación profesional de nuestros asociados.</p>
+                    <div class="arrow">→</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cumbres Inmobiliarias -->
+    <section class="links-section" id="cumbres" style="background: var(--gris-claro);">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Cumbres Inmobiliarias</h2>
+                <p>Los eventos de referencia del sector inmobiliario en la región</p>
+            </div>
+            <div class="links-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                <a href="https://cima25.my.canva.site/cima2025cidea" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Evento</span>
+                    <div class="card-icon">🏔️</div>
+                    <h4>CIMA 2025</h4>
+                    <p>Revive los momentos destacados de nuestra Cumbre Inmobiliaria del año 2025. Un espacio de encuentro, reflexión y proyección del sector.</p>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://cideanz.github.io/CIMA2026/" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Próximo Evento</span>
+                    <div class="card-icon">🚀</div>
+                    <h4>CIMA 2026 — Cumbre de Reactivación Económica e Innovación</h4>
+                    <p>La próxima edición de nuestra cumbre, orientada a impulsar la reactivación económica e integrar la innovación en el sector inmobiliario.</p>
+                    <div class="arrow">→</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alianzas -->
+    <section class="links-section" id="alianzas">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Alianzas CIDEA</h2>
+                <p>Beneficios exclusivos para nuestros afiliados a través de convenios estratégicos</p>
+            </div>
+            <div class="links-grid">
+                <a href="https://drive.google.com/file/d/1D0sikd5_mxi-j5MeM23dvFeEgUyk7l-T/view" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Salud</span>
+                    <div class="card-icon">🏥</div>
+                    <h4>CIDEA Salud — Estar Seguros</h4>
+                    <p>Convenio de salud diseñado para brindar protección y tranquilidad a nuestros asociados y sus familiares.</p>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://drive.google.com/file/d/19jx11Udt3bFfYk38jjMOCrarBzhy2p2F/view" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Salud</span>
+                    <div class="card-icon">🩺</div>
+                    <h4>CIDEA Salud — Day Hospital (APS)</h4>
+                    <p>Alianza con Day Hospital para atención primaria de salud con condiciones preferenciales para el gremio.</p>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://drive.google.com/drive/u/4/folders/1HGu3kTdvJvXcKMPMT4RHRmQsYtoLKREK" target="_blank" class="link-card fade-in">
+                    <span class="category-label">Hogar</span>
+                    <div class="card-icon">🏠</div>
+                    <h4>CIDEA Hogar — La Mundial de Seguros</h4>
+                    <p>Protección integral para el hogar de nuestros afiliados mediante alianza con La Mundial de Seguros.</p>
+                    <div class="arrow">→</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academia / PREANI -->
+    <section class="academia-section" id="academia">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>CIDEA Academia</h2>
+                <p>Formación continua para la excelencia profesional</p>
+            </div>
+            <div class="academia-grid">
+                <div class="academia-info fade-in">
+                    <h3>📚 Programa de Educación Continua</h3>
+                    <p>Desde la Cámara Inmobiliaria del Estado Anzoátegui, impulsamos un robusto programa de formación dirigido a afiliados y aliados, diseñado para mantener a nuestra comunidad inmobiliaria a la vanguardia del conocimiento sectorial.</p>
+                    <p>A través de conferencias, cursos especializados, talleres prácticos y charlas magistrales, abordamos las tendencias, normativas y herramientas que definen el presente y futuro del mercado inmobiliario venezolano.</p>
+                    <span class="tag">Conferencias</span>
+                    <span class="tag">Cursos</span>
+                    <span class="tag">Talleres</span>
+                    <span class="tag">Charlas</span>
+                </div>
+
+                <div class="preani-card fade-in">
+                    <h3>🎓 PREANI</h3>
+                    <p style="margin-bottom: 1rem;"><strong>Formación avanzada para líderes inmobiliarios.</strong></p>
+                    <p>En alianza estratégica con la <strong>Universidad Católica Andrés Bello (UCAB)</strong>, hemos desarrollado un programa académico de postgrado y diplomado que eleva los estándares del ejercicio profesional inmobiliario en Venezuela.</p>
+                    
+                    <ul>
+                        <li><strong>Duración:</strong> 6 meses de formación intensiva</li>
+                        <li><strong>Adscripción:</strong> Facultad de Ciencias Económicas y Sociales UCAB</li>
+                        <li><strong>Propiedad intelectual:</strong> Cámara Inmobiliaria de Venezuela (CIV)</li>
+                        <li><strong>Certificación:</strong> Posgrado Universitario en Estudios en Negocios Inmobiliarios (para titulados universitarios) / Diplomado (para participantes sin pregrado)</li>
+                        <li><strong>Carga académica:</strong> 20 Unidades de Crédito — 240 horas académicas</li>
+                        <li><strong>Estructura:</strong> 5 Módulos de Formación + 1 Módulo de Certificación CIV</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto-section" id="contacto">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Conecta con CIDEA</h2>
+                <p>Estamos a tu disposición para brindarte toda la información que necesites</p>
+            </div>
+            <div class="contacto-grid fade-in">
+                <a href="https://wa.me/+584148191084" target="_blank" class="contacto-btn btn-wa">
+                    <span>💬</span> Escríbenos por WhatsApp
+                </a>
+                <a href="https://www.instagram.com/cideanzoategui/?hl=es" target="_blank" class="contacto-btn btn-ig">
+                    <span>📷</span> Síguenos en Instagram
+                </a>
+                <a href="mailto:cideanz1988@gmail.com" class="contacto-btn btn-mail">
+                    <span>✉️</span> cideanz1988@gmail.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Cámara Inmobiliaria del Estado Anzoátegui (CIDEA)</strong></p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">Afiliada a la Cámara Inmobiliaria de Venezuela</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 CIDEA. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Animación de entrada al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
