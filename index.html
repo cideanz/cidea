@@ -49,14 +49,8 @@
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeIn {
@@ -65,14 +59,8 @@
         }
 
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .animate-on-scroll {
@@ -1006,7 +994,7 @@
                         <i class="fas fa-calendar-alt"></i>
                         CIMA 2026
                     </a>
-                    <a href="https://wa.me/+584148191084" class="btn btn-secondary" target="_blank">
+                    <a href="https://wa.me/584148191084" class="btn btn-secondary" target="_blank">
                         <i class="fab fa-whatsapp"></i>
                         Contáctanos
                     </a>
@@ -1283,7 +1271,7 @@
                     </p>
                     
                     <div class="contact-methods">
-                        <a href="https://wa.me/+584148191084" target="_blank" class="contact-method">
+                        <a href="https://wa.me/584148191084" target="_blank" class="contact-method">
                             <div class="contact-method-icon">
                                 <i class="fab fa-whatsapp"></i>
                             </div>
@@ -1325,29 +1313,23 @@
                     </div>
                 </div>
 
+                <!-- Formulario WhatsApp -->
                 <div class="contact-form animate-on-scroll">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Nombre completo</label>
-                            <input type="text" id="name" name="name" required placeholder="Tu nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Teléfono</label>
-                            <input type="tel" id="phone" name="phone" placeholder="0414-1234567">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" name="message" required placeholder="¿En qué podemos ayudarte?"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                            <i class="fas fa-paper-plane"></i>
-                            Enviar mensaje
-                        </button>
-                    </form>
+                    <div class="form-group">
+                        <label for="wa-name">Nombre completo</label>
+                        <input type="text" id="wa-name" placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="wa-email">Correo electrónico (Opcional)</label>
+                        <input type="email" id="wa-email" placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="wa-message">Mensaje</label>
+                        <textarea id="wa-message" placeholder="¿En qué podemos ayudarte?"></textarea>
+                    </div>
+                    <button onclick="enviarWhatsApp()" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+                    </button>
                 </div>
             </div>
         </div>
@@ -1368,7 +1350,7 @@
                         <a href="https://www.instagram.com/cideanzoategui/?hl=es" target="_blank" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://wa.me/+584148191084" target="_blank" aria-label="WhatsApp">
+                        <a href="https://wa.me/584148191084" target="_blank" aria-label="WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                         <a href="mailto:cideanz1988@gmail.com" aria-label="Email">
@@ -1400,7 +1382,7 @@
                 <div class="footer-column">
                     <h4>Contacto</h4>
                     <ul>
-                        <li><a href="https://wa.me/+584148191084" target="_blank">+58 414-8191084</a></li>
+                        <li><a href="https://wa.me/584148191084" target="_blank">+58 414-8191084</a></li>
                         <li><a href="mailto:cideanz1988@gmail.com">cideanz1988@gmail.com</a></li>
                         <li>Lechería, Anzoátegui</li>
                         <li>Venezuela</li>
@@ -1464,27 +1446,27 @@
             });
         });
 
-        // Contact form handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value
-            };
+        // Función para enviar formulario a WhatsApp
+        function enviarWhatsApp() {
+            const nombre = document.getElementById('wa-name').value.trim();
+            const email = document.getElementById('wa-email').value.trim();
+            const mensaje = document.getElementById('wa-message').value.trim();
 
-            // Here you would normally send the data to a server
-            console.log('Form data:', formData);
-            
-            // Show success message
-            alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
-            
-            // Reset form
-            this.reset();
-        });
+            if (nombre === '' || mensaje === '') {
+                alert('Por favor, completa al menos tu nombre y el mensaje.');
+                return;
+            }
+
+            let texto = `Hola CIDEA, mi nombre es *${nombre}*.`;
+            if (email !== '') {
+                texto += `\nMi correo es: ${email}.`;
+            }
+            texto += `\n\n*Mensaje:*\n${mensaje}`;
+
+            const numeroWhatsApp = "584148191084";
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
 
         // Mobile menu toggle (basic implementation)
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
@@ -1501,22 +1483,6 @@
             navMenu.style.padding = '2rem';
             navMenu.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
         });
-
-        // Performance: Lazy load images
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src || img.src;
-                        img.classList.remove('lazy');
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-
-            document.querySelectorAll('img').forEach(img => imageObserver.observe(img));
-        }
     </script>
 </body>
 </html>
